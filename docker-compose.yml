@@ -14,8 +14,8 @@ services:
       - 443:443
       - 8080:8080
     environment:
-      - CF_API_EMAIL=
-      - CF_API_KEY=
+      - CF_API_EMAIL=${CF_API_EMAIL}
+      - CF_API_KEY=${CF_API_KEY}
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
@@ -25,19 +25,19 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.traefik.entrypoints=http"
-      - "traefik.http.routers.traefik.rule=Host(`traefik.local.laloassets.com`)"
+      - "traefik.http.routers.traefik.rule=Host(`traefik.local.darkmode.live`)"
       - "traefik.http.routers.traefik.middlewares=traefik-auth"
       # - "traefik.http.middlewares.traefik-auth.basicauth.users=user:password"
       - "traefik.http.middlewares.traefik-https-redirect.redirectscheme.scheme=https"
       - "traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https"
       - "traefik.http.routers.traefik.middlewares=traefik-https-redirect"
       - "traefik.http.routers.traefik-secure.entrypoints=https"
-      - "traefik.http.routers.traefik-secure.rule=Host(`traefik.local.laloassets.com`)"
+      - "traefik.http.routers.traefik-secure.rule=Host(`traefik.local.darkmode.live`)"
       - "traefik.http.routers.traefik-secure.middlewares=traefik-auth"
       - "traefik.http.routers.traefik-secure.tls=true"
       - "traefik.http.routers.traefik-secure.tls.certresolver=cloudflare"
-      - "traefik.http.routers.traefik-secure.tls.domains[0].main=local.laloassets.com"
-      - "traefik.http.routers.traefik-secure.tls.domains[0].sans=*.local.laloassets.com"
+      - "traefik.http.routers.traefik-secure.tls.domains[0].main=local.darkmode.live"
+      - "traefik.http.routers.traefik-secure.tls.domains[0].sans=*.local.darkmode.live"
       - "traefik.http.routers.traefik-secure.service=api@internal"
 networks:
   proxy:
